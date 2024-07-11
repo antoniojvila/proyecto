@@ -1,0 +1,57 @@
+<div class="units">
+    <app-sidebar></app-sidebar>
+
+    <div class="units__body">
+        <ng-container *ngIf="unitId">
+            <app-unit *ngFor="let lesson of lessons" [title]="lesson.name" [unit]="unitId" [lesson]="lesson.id"></app-unit>
+        </ng-container>
+    </div>
+
+    <div class="units__floating-bar">
+        <div class="units__punctuation">
+            <div class="units__punctuation-item">
+                <span class="units__punctuation-description">
+                    Aciertos
+                </span>
+
+                <div class="units__punctuation-value">
+                    0
+                </div>
+            </div>
+
+            <div class="units__punctuation-item">
+                <span class="units__punctuation-description">
+                    Errores
+                </span>
+
+                <div class="units__punctuation-value">
+                    0
+                </div>
+            </div>
+
+            <div class="units__punctuation-item">
+                <span class="units__punctuation-description">
+                    Puntuación
+                </span>
+
+                <div class="units__punctuation-value">
+                    0
+                </div>
+            </div>
+
+            <div class="units__punctuation-item">
+                <span class="units__punctuation-description">
+                    Mejor Tiempo
+                </span>
+
+                <div class="units__punctuation-value">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <div class="units__floating-action">
+            <button class="units__test" (click)="open()">INICIAR PRUEBA</button>
+        </div>
+    </div>
+</div>

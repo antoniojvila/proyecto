@@ -1,0 +1,52 @@
+.stage {
+    width: 60rem;
+    height: 10rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--primary-color);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+
+    &__title {
+        font-size: 1.2rem;
+    }
+
+    &__start {
+        width: 10rem;
+        height: 2rem;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: var(--secondary-color-1);
+        color: var(--primary-color);
+        border: none;
+        outline: none;
+    }
+
+    &__details {
+        width: 10rem;
+        height: 2rem;
+        font-weight: 500;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        border: none;
+        outline: none;
+    }
+
+    &__title {
+        align-self: start;
+    }
+
+    &__progress-bar {
+        align-self: center;
+    }
+
+    &__actions {
+        justify-self: end;
+        align-self: end;
+    }
+}

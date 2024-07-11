@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signlingo Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Signlingo</h1>
+            <nav>
+                <a href="#" class="sidebar__item">Inicio</a>
+                <a href="#" class="sidebar__item">Configuración</a>
+            </nav>
+            <a href="#" class="logout">Salir</a>
+        </div>
+        <div class="content">
+            <h2>Reportes</h2>
+            <div class="contenedor-buscador">
+                <input type="text" id="buscar-alumno" placeholder="Buscar Alumno">
+            </div>
+            {% comment %} <div id="estadisticas">
+                <p id="promedio-unidades">Promedio de unidades completadas: </p>
+                <p id="promedio-nivel">Promedio de nivel de alumnos: </p>
+            </div> {% endcomment %}
+            <div id="lista-alumnos"></div>
+        </div>
+    </div>
+    <script src="{% static 'js/alumnos.js' %}"></script>
+</body>
+</html>

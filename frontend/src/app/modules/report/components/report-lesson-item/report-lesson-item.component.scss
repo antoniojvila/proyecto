@@ -1,0 +1,32 @@
+.report-lesson-item {
+    width: 100%;
+    background-color: #ffffff;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-lesson-item-img {
+    width: 5rem;
+    margin-right: 1rem;
+}
+
+.report-lesson-data {
+    margin-left: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-lesson-item__title, .report-lesson-item__complete {
+    color: #4B4B4B;
+    font-family: roboto;
+    font-weight: 300;
+}
+
+.report-lesson-item__complete {
+    margin: 0;
+    margin-right: 1rem;
+}

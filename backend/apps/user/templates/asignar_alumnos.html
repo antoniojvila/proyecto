@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Alumnos a Profesores</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Signlingo</h1>
+            <nav>
+                <a href="#" class="sidebar__item">Inicio</a>
+                <a href="#" class="sidebar__item">Configuración</a>
+            </nav>
+            <a href="#" class="logout">Salir</a>
+        </div>
+        <div class="content">
+            <h2>Asignar Alumnos a Profesores</h2>
+            <div class="seccion-profesor">
+                <input type="text" id="buscar-profesor" placeholder="Buscar Profesor">
+                <select id="profesor" class="selector-buscador">
+                    <option value="">Seleccionar</option>
+                </select>
+            </div>
+            <div class="seccion-alumnos">
+                <input type="text" id="buscar-alumno" placeholder="Buscar Alumno">
+                <select id="alumnos-disponibles" class="selector-buscador" multiple></select>
+                <button id="btn-agregar-alumno">Agregar Alumno</button>
+            </div>
+            <div class="seccion-asignacion">
+                <h1 id="asignacion-titulo">Se asignará a este profesor:</h1>
+                <select id="alumnos-seleccionados" multiple></select>
+                <button id="btn-asignar">Asignar Alumnos</button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

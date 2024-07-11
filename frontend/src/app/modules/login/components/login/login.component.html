@@ -1,0 +1,30 @@
+<div class="login">
+    <div class="login__container">
+        <img src="assets/svg/signlingo-logo.svg" alt="Signlingo Logo" class="login__logo">
+
+        <span class="login__title">
+            Ingresar
+        </span>
+        
+        <form class="login__form" [formGroup]="loginFormGroup">
+            <mat-form-field class="login__input">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="user" color="primary" type="text">
+            </mat-form-field>
+            
+            <mat-form-field class="login__input">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" color="primary" type="text">
+            </mat-form-field>
+        </form>
+
+        <div class="login__actions">
+            <button class="cta-button" (click)="submit()">
+                INICIAR SESIÓN
+            </button>
+            <span class="cta-link cta-link_login" [routerLink]="['/', 'register']">
+                O registrate si no tienes una cuenta creada
+            </span>
+        </div>
+    </div>
+</div>

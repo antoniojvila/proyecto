@@ -1,0 +1,11 @@
+<div class="report-lesson-item">
+    <div class="report-lesson-data">
+        <div class="report-lesson-item__image">
+            <img [src]="'http://localhost:8000' + image" class="report-lesson-item-img">
+        </div>
+    
+        <h3 class="report-lesson-item__title">{{ lessonName }}</h3>
+    </div>
+
+    <p class="report-lesson-item__complete">{{ complete ? 'Completado' : 'No completado' }}</p>
+</div>

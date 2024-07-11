@@ -1,0 +1,627 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+    background-color: #dfe6e9;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+}
+
+.backdrop, .result-backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-size: 1.25rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-backdrop {
+    display: none;
+}
+
+#finalScore {
+    margin-top: 0;
+}
+
+.backdrop-cta {
+    padding: 1rem 3rem;
+    border: 1px #ffffff solid;
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+    background: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.backdrop-cta:hover {
+    background-color: #ffffff !important;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.back-app {
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.back-app:hover {
+    color: #b2bec3;
+}
+
+.backdrop-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-divisor {
+    width: 100%;
+    height: 0.25rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    background-color: #ffffff;
+}
+
+header {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #ffffff;
+    color: #636e72;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr;
+    justify-content: stretch;
+}
+
+.score-board {
+    margin-right: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.score-action {
+    margin-right: 1rem;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.score-action svg {
+    fill: #636e72;
+    transition: 0.25s fill;
+}
+
+.score-action:hover svg {
+    fill: #b2bec3;
+}
+
+.signlingo-logo {
+    padding: 0.5rem;
+}
+
+.score-board p {
+    margin: 0.5rem;
+}
+
+.score-board__text {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.score-properties {
+    justify-self: center;
+    align-self: center;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+}
+
+header h2 {
+    margin: 0 10px 0 0; /* Margen derecho para separación entre el título y la puntuación */
+}
+
+#game {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr;
+}
+
+.left-column, .right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.middle-column {
+    background-color: #ecf0f1;
+    width: 100%; /* Para que crezca todo lo posible */
+}
+
+.signal, .response {
+    width: 6rem;
+    height: 6rem;
+    color: #636e72;
+    font-size: 50px;
+    font-family: Roboto;
+    font-style: bold;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signal:hover, .response:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.selected {
+    background-color: #c8d6e5;
+}
+
+.sign-icon{
+    height: 80px;
+}
+
+
+
+
+
+/* Additional styles for memory game */
+
+.game-board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.card {
+    width: 100px;
+    height: 150px;
+    margin: 10px;
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b2bec3;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card-front {
+    background-color: #dfe6e9;
+}
+
+.card-back {
+    background-color: #74b9ff;
+    transform: rotateY(180deg);
+}
+
+.card-back img {
+    width: 50px;
+    height: 50px;
+}
+
+.card-back p {
+    font-size: 1rem;
+    color: #fff;
+}
+
+
+/* Add these styles for final score and time display */
+#finalScore,
+#finalTime {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.memory-card {
+    position: relative;
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.memory-card .front-face,
+.memory-card .back-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 5px;
+}
+
+.memory-card .front-face {
+    transform: rotateY(180deg);
+}
+
+.memory-card .back-face {
+    background: #4e4e4e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contenedor-buscador {
+    margin: 20px 0;
+}
+
+#buscar-alumno {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #b2bec3;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #636e72;
+}
+
+#buscar-profesor {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #b2bec3;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #636e72;
+}
+
+#estadisticas {
+    margin: 20px 0;
+}
+
+#promedio-unidades, #promedio-nivel {
+    font-size: 1rem;
+    color: #636e72;
+}
+
+#lista-alumnos .alumno {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #b2bec3;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+#lista-alumnos .unidades ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#lista-alumnos .unidades li {
+    margin-bottom: 10px;
+}
+
+#lista-alumnos .lecciones ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#lista-alumnos .lecciones li {
+    margin-bottom: 5px;
+}
+
+.toggle-alumno, .toggle-unidad {
+    cursor: pointer;
+    color: #2980b9;
+}
+
+.toggle-alumno:hover, .toggle-unidad:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: #ecf0f1;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar h1::before {
+    content: '🖐'; /* Placeholder for logo */
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar__item {
+    background-color: transparent;
+    padding: 1rem;
+    margin-bottom: .5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.sidebar .logout {
+    text-decoration: none;
+    color: #636e72;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logout::before {
+    content: '↩';
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seccion-profesor,
+.seccion-alumnos,
+.seccion-asignacion {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#buscar-profesor,
+#buscar-alumno,
+.selector-buscador {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #b2bec3;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #636e72;
+    margin-top: 10px;
+}
+
+.seccion-alumnos {
+    position: relative;
+}
+
+#btn-agregar-alumno {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #2980b9;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#btn-agregar-alumno:hover {
+    background-color: #1f5a7a;
+}
+
+#asignacion-titulo {
+    font-size: 1.5rem;
+    color: #636e72;
+    margin-bottom: 10px;
+}
+
+#btn-asignar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #2980b9;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#btn-asignar:hover {
+    background-color: #1f5a7a;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: #ecf0f1;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar h1::before {
+    content: '🖐'; /* Placeholder for logo */
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar__item {
+    background-color: transparent;
+    padding: 1rem;
+    margin-bottom: .5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.sidebar .logout {
+    text-decoration: none;
+    color: #636e72;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logout::before {
+    content: '↩';
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content h2 {
+    font-size: 2rem;
+    color: #636e72;
+    margin: 0 0 20px;
+}

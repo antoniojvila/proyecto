@@ -1,0 +1,26 @@
+<div class="lesson">
+    <app-sidebar></app-sidebar>
+
+    <div class="lesson__body">
+        <mat-card *ngIf="lesson">
+            <mat-card-content>
+                <div class="lesson__card">
+                    <div class="lesson__title">
+                        <mat-icon class="lesson__icon" (click)="back()">keyboard_arrow_left</mat-icon>
+                        <h3 class="lesson__text">{{ lesson.name }}</h3>
+                    </div>
+    
+                    <div class="lesson__content">
+                        <img class="lesson__image" [src]="lesson.image">
+                    </div>
+
+                    <ng-container *ngIf="lesson.video">
+                        <div class="lesson__actions">
+                            <button class="lesson__move" (click)="openMove()">VER MOVIMIENTO</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

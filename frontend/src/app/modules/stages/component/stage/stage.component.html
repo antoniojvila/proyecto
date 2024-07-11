@@ -1,0 +1,9 @@
+<div class="stage">
+    <div class="stage__title">{{ title }}</div>
+    <div class="stage__progress-bar">
+        <mat-progress-bar mode="determinate" [value]="average"></mat-progress-bar>
+    </div>
+    <div class="stage__actions">
+        <button class="stage__start" [routerLink]="['/', 'stage', id]">INICIAR</button>
+    </div>
+</div>

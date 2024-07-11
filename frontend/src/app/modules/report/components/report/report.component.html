@@ -1,0 +1,27 @@
+<div class="report">
+    <app-sidebar></app-sidebar>
+
+    <div class="report__body">
+        <h1 class="report__title">Reportes</h1>
+
+        <mat-form-field class="report__select">
+            <mat-label>
+                Seleccione un alumno
+            </mat-label>
+
+            <mat-select [formControl]="userFormControl">
+                <mat-option *ngFor="let report of reports" [value]="report">{{ report.username }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="report__item">
+            <ng-container *ngIf="selectedUser">
+                <ng-container *ngFor="let unit of selectedUser.units">
+                    <h2 class="report__item-title">{{ unit.name }}</h2>
+    
+                    <app-report-lesson-item *ngFor="let lesson of unit.lessons" [image]="lesson.ico" [lessonName]="lesson.name" [complete]="lesson.completed"></app-report-lesson-item>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

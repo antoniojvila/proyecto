@@ -1,0 +1,39 @@
+.login {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__title {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        font-size: 1.5rem;
+        font-weight: 300;
+    }
+
+    &__form {
+        margin-bottom: 1rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__input {
+        width: 30rem;
+    }
+}
+
+.cta-link_login {
+    align-self: flex-start;
+}

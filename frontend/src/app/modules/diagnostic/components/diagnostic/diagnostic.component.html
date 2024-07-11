@@ -1,0 +1,17 @@
+<div class="diagnostic__top"></div>
+
+<div class="diagnostic">
+    <ng-container *ngFor="let diagnostic of diagnostics">
+        <div class="diagnostic__item">
+            <img [src]="'http://localhost:8000' + diagnostic.question.ico" class="diagnostic__image">
+
+            <h2 class="diagnostic__title">Lección - {{ diagnostic.question.name }}</h2>
+
+            <div class="diagnostic__actions" #options>
+                <button class="diagnostic__option" *ngFor="let option of diagnostic.options" (click)="selectOption(diagnostic, option, options)">{{ option.name }}</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <button class="diagnostic__submit cta-button" (click)="submit()">Enviar</button>
+</div>

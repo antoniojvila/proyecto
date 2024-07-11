@@ -1,0 +1,17 @@
+<div class="sidebar">
+    <div class="sidebar__header">
+        <img src="assets/svg/signlingo-logo.svg" alt="Signlingo Logo" class="register__logo">
+    </div>
+
+    <div class="sidebar__body">
+        <div class="sidebar__item" [routerLink]="['/', 'stages']">Inicio</div>
+        <div class="sidebar__item" [routerLink]="['/', 'configuration']">Configuración</div>
+    </div>
+    
+    <div class="sidebar__footer">
+        <div class="sidebar__logout" [routerLink]="['/']">
+            <mat-icon>exit_to_app</mat-icon>
+            <span class="sidebar__logout-text">Salir</span>
+        </div>
+    </div>
+</div>

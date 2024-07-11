@@ -1,0 +1,7 @@
+<div class="stages">
+    <app-sidebar></app-sidebar>
+
+    <div class="stages__body">
+        <app-stage *ngFor="let unit of units" [id]="unit.id" [title]="unit.name" [average]="0"></app-stage>
+    </div>
+</div>

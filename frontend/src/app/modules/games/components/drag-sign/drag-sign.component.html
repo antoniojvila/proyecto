@@ -1,0 +1,25 @@
+<div cdkDropListGroup class="drag-sign">
+    <div class="example-container">
+        <div
+        cdkDropList
+        [cdkDropListData]="todo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+            <mat-icon>{{item}}</mat-icon>
+        </div>
+        </div>
+    </div>
+
+    <div class="example-container">
+        <div
+        cdkDropList
+        [cdkDropListData]="done"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of done" cdkDrag>
+            <mat-icon>{{item}}</mat-icon>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+.stages {
+    height: 100%;
+    background-color: #ECF0F1;
+    
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+
+    &__body {
+        padding: 1rem;
+        overflow-y: scroll;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(auto, auto-fit);
+        row-gap: 1rem;
+        column-gap: 1rem;
+    }
+}

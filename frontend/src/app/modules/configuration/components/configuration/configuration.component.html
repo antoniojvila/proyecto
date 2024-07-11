@@ -1,0 +1,49 @@
+<div class="configuration">
+    <app-sidebar></app-sidebar>
+
+    <div class="configuration__body">
+        <mat-card class="configuration__card">
+            <mat-card-content>
+                <h3 class="configuration__title">Actualizar Información</h3>
+                <form class="configuration__form">
+                    <div class="configuration__inputs">
+                        <mat-form-field class="configuration__input">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field class="configuration__input">
+                            <mat-label>Edad</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+
+                        <mat-form-field class="configuration__input configuration__mail-input">
+                            <mat-label>Correo</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field class="configuration__input">
+                            <mat-label>Ciudad</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+    
+                        <div class="configuration__change-password">
+                            <mat-form-field class="configuration__input">
+                                <mat-label>Contraseña</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+    
+                            <button class="configuration__password">
+                                Actualizar
+                                <br>
+                                Contraseña
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <button class="configuration__update" (click)="openWIP()">Actualizar</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

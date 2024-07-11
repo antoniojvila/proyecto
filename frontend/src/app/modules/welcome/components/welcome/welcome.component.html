@@ -1,0 +1,23 @@
+<div class="welcome">
+    <div class="welcome__header">
+        <img src="assets/svg/signlingo-logo.svg" alt="Signlingo Logo">
+    </div>
+
+    <div class="welcome__illustration">
+        <img src="assets/svg/welcome-shape.svg" alt="Shape Illustration">
+    </div>
+
+    <div class="welcome__cta">
+        <p class="welcome__cta-message">
+            ¡La forma divertida y efectiva de aprender un lenguaje de señas!
+        </p>
+
+        <button class="cta-button" [routerLink]="['/', 'register']">
+            EMPIEZA AHORA
+        </button>
+        
+        <span class="cta-link" [routerLink]="['/', 'login']">
+            O inicia sesión si ya tienes una cuenta creada
+        </span>
+    </div>
+</div>

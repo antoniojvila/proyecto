@@ -1,0 +1,24 @@
+.guest-user-dialog__header {
+    color: var(--primary-color);
+    background-color: var(--secondary-color-2);
+}
+
+.guest-user-dialog__paragraph {
+    padding: 1rem;
+}
+
+.guest-user-dialog__actions {
+    border-top: solid 1px var(--secondary-color-1);
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.guest-user-dialog__cta-button {
+    width: 4rem !important;
+    height: 2rem !important;
+    margin: 0;
+    margin-left: 1rem;
+    border: 0;
+}

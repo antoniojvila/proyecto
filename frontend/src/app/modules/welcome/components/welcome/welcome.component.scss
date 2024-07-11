@@ -1,0 +1,34 @@
+.welcome {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+
+    &__header {
+        padding: 1rem;
+        padding-top: 2rem;
+        padding-left: 2rem;
+
+        grid-column: span 2 / span 1;
+    }
+
+    &__illustration {
+        justify-self: center;
+        align-self: center;
+    }
+
+    &__cta {
+        justify-self: center;
+        align-self: center;
+
+        &-message {
+            width: 37rem;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            line-height: 1;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<div class="register">
+    <div class="register__container">
+        <img src="assets/svg/signlingo-logo.svg" alt="Signlingo Logo" class="register__logo">
+
+        <span class="register__title">
+            Registrar
+        </span>
+        
+        <form class="register__form" [formGroup]="registerFormGroup">
+            <mat-form-field class="register__input">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="user" color="primary" type="text">
+            </mat-form-field>
+            
+            <mat-form-field class="register__input">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" color="primary" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="register__input">
+                <mat-label>Edad</mat-label>
+                <input matInput formControlName="age" color="primary" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="register__input">
+                <mat-label>Genero</mat-label>
+                <input matInput formControlName="gender" color="primary" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="register__input register__email-input">
+                <mat-label>Correo Electronico</mat-label>
+                <input matInput formControlName="email" color="primary" type="text">
+            </mat-form-field>
+        </form>
+
+        <div class="register__actions">
+            <button class="cta-button" (click)="submit()">
+                REGISTRARME
+            </button>
+            <span class="cta-link cta-link_register" [routerLink]="['/', 'login']">
+                O inicia sesión si ya tienes una cuenta creada
+            </span>
+        </div>
+    </div>
+</div>
