@@ -222,8 +222,27 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     }
 
+    function getTokenFromUrl(name) {
+        const url = new URL(window.location.href);
+        const urlParams = new URLSearchParams(url.search);
+        const data = urlParams.get(name);
+        return data;
+    }
+    
+    
+    const mytoken = getTokenFromUrl('token');
+    const myrefresh = getTokenFromUrl('refresh');
+    
     async function authenticatedFetch(url, method = 'GET', body = null) {
         let accessToken = localStorage.getItem('access_token');
+        if(accessToken == null){
+            accessToken = mytoken;
+        }
+    
+        const refreshToken = localStorage.getItem('refresh_token');
+        if(refreshToken == null){
+            refreshToken = myrefresh;
+        }
 
         const options = {
             method: method,
@@ -242,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ refresh: localStorage.getItem('refresh_token') }),
+                body: JSON.stringify({ refresh: refreshToken }),
             });
 
             if (!refreshResponse.ok) {
