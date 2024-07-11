@@ -21,17 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let roundNumber = 0;
     let unitId = 0;
 
-    const username = getCookie('username') || 'admin';
-    const password = getCookie('password') || 'admin';
-
-    login(username, password).then(() => {
-        initializeData();
-    }).catch(error => {
-        console.error('Login with cookie credentials failed, trying with admin credentials:', error);
-        login('admin', 'admin').then(() => {
-            initializeData();
-        }).catch(error => console.error('Login with admin credentials failed:', error));
-    });
+    const mytoken = getTokenFromUrl('token');
+    const myrefresh = getTokenFromUrl('refresh');
+    
+    initializeData();
 
     async function login(username, password) {
         const response = await fetch('http://localhost:8000/api/token/', {
@@ -49,12 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
         localStorage.setItem('access_token', data.access);
         localStorage.setItem('refresh_token', data.refresh);
-        console.log('Login successful');
     }
 
     async function authenticatedFetch(url, method = 'GET', body = null) {
-        let accessToken = localStorage.getItem('access_token');
-
+        let accessToken = mytoken;
         const options = {
             method: method,
             headers: {
@@ -63,16 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: body ? JSON.stringify(body) : null,
         };
-
+        
         let response = await fetch(url, options);
-
+        console.log(response);
         if (response.status === 401) {
             const refreshResponse = await fetch('http://localhost:8000/api/token/refresh/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ refresh: localStorage.getItem('refresh_token') }),
+                body: JSON.stringify({ refresh: myrefresh }),
             });
 
             if (!refreshResponse.ok) {
@@ -109,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchScore() {
         try {
-            var scores = await authenticatedFetch('http://127.0.0.1:8000/api/scores/');
+            const scores = await authenticatedFetch('http://127.0.0.1:8000/api/scores/');
             const totalScore = scores.length > 0 ? scores[0]['score'] : 0;
             scoreElement.textContent = totalScore;
             roundNumber = scores.length;
@@ -180,7 +171,44 @@ document.addEventListener("DOMContentLoaded", () => {
     function endGame() {
         const success = parseInt(successElement.textContent);
         const errors = parseInt(errorsElement.textContent);
+        
+        let totalAttempts = success + errors;
+        let accuracy = success / totalAttempts;
+
+        const imgBien = "http://127.0.0.1:8000/media/bien.png";
+        const imgRegular = "http://127.0.0.1:8000/media/meh.png";
+        const imgMal = "http://127.0.0.1:8000/media/mal.png";
+        
         resultBackdrop.style.display = "block";
+
+        if (accuracy < 0.5) {
+            let container = document.querySelectorAll('.sign-icon')[1]
+            let imgElement = document.createElement('img');
+            imgElement.src = imgMal;
+            imgElement.alt = "Descripción de la imagen";
+            imgElement.width = 100;
+            container.innerHTML = '';
+            container.appendChild(imgElement);
+        } else if (accuracy >= 0.5 && accuracy < 0.8) {
+            let container = document.querySelectorAll('.sign-icon')[1]
+            let imgElement = document.createElement('img');
+            imgElement.src = imgRegular;
+            imgElement.alt = "Descripción de la imagen";
+            imgElement.width = 100;
+            container.innerHTML = '';
+            container.appendChild(imgElement);
+        } else {
+            let container = document.querySelectorAll('.sign-icon')[1]
+            let imgElement = document.createElement('img');
+            imgElement.src = imgBien;
+            imgElement.alt = "Descripción de la imagen";
+            imgElement.width = 100;
+            container.innerHTML = '';
+            container.appendChild(imgElement);
+        }
+
+        
+
         finalScore.innerHTML = success;
         saveScore(success, errors);
         resetGame();
@@ -219,13 +247,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const responseElements = document.querySelectorAll('.response');
     
         for (let i = 0; i < signalElements.length; i++) {
-            console.log(i, signalElements[i]);
             signalElements[i].style.backgroundImage = "url(" + signalsSubset[i].image + ")";
             signalElements[i].style.backgroundPosition = "center";
             signalElements[i].style.backgroundSize = "contain";
             signalElements[i].setAttribute("item", signalsSubset[i].id);
     
-            responseElements[i].innerHTML = responsesSubset[i].id;
+            responseElements[i].innerHTML = responsesSubset[i].name;
             responseElements[i].setAttribute("item", responsesSubset[i].id);
         }
     }
@@ -307,9 +334,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backToApp.addEventListener('click', backtoAppFunction);
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+    function decodeBase64UrlSafe(base64String) {
+        // Reemplazar caracteres no estándar
+        const base64 = base64String.replace(/-/g, '+').replace(/_/g, '/');
+        
+        // Añadir padding si es necesario
+        const padding = base64.length % 4 === 0 ? '' : '==='.slice(0, 4 - (base64.length % 4));
+        const base64Padded = base64 + padding;
+
+        // Convertir base64 a Uint8Array
+        const binaryString = window.atob(base64Padded);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        // Decodificar bytes a texto usando TextDecoder
+        const decoder = new TextDecoder();
+        return decoder.decode(bytes);
+    }
+
+    function getTokenFromUrl(name) {
+        const url = new URL(window.location.href);
+        const urlParams = new URLSearchParams(url.search);
+        const data = urlParams.get(name);
+        return data;
+
+        if (data) {
+            try {
+                const decodedString = decodeBase64UrlSafe(data);
+                return decodedString;
+            } catch (e) {
+                console.error('Error decoding Base64 string:', e);
+                return null;
+            }
+        }
+        return null;
     }
 });

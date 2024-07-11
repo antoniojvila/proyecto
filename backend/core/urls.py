@@ -31,7 +31,7 @@ from apps.signals.views import UnitViewSet, LessonsListView, ULessonViewSet, UUn
 from apps.user.views import RegisterView, UserReportListView, CustomTokenObtainPairView
 from apps.user.views import CreateAlumnoView, ListProfessorsView, ListStudentsView, CreateProfesorView 
 from apps.user.views import ListStudenswithoutTeachertsView, AssociateProfesorWithAlumnosView
-from apps.user.views import UserManageListView, UserReassignView, UserDeleteView, UserEditView
+from apps.user.views import UserManageListView, UserReassignView, UserDeleteView, UserEditView, FileDownloadView, FileDownloadAlumnoView
 from apps.signals.view_d import DiagnosticLessonsView, SubmitResponseView, DiagnosticResponsesView
 
 router = DefaultRouter()
@@ -66,6 +66,8 @@ urlpatterns = [
     path('api/manage/users/<int:pk>/', UserDeleteView.as_view(), name='user_delete'),
     path('api/manage/users/<int:pk>/reassign/', UserReassignView.as_view(), name='user_reassign'),
     path('api/manage/users/<int:pk>/edit/', UserEditView.as_view(), name='user_edit'),
+    path('api/dw/', FileDownloadView.as_view(), name='dw'),
+    path('api/dw/<int:pk>/', FileDownloadAlumnoView.as_view(), name='dw2'),
 ]
 
 if settings.DEBUG:

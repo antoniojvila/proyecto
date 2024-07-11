@@ -6,3 +6,4 @@ pillow
 django-filter
 numpy
 djangorestframework-simplejwt>=5.2.0,<6.0
+reportlab

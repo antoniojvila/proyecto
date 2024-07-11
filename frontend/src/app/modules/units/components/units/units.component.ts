@@ -35,7 +35,7 @@ export class UnitsComponent implements OnInit {
   }
 
   public open(): void {
-    location.href = "http://127.0.0.1:8000/games/1/?unit_id=" + this.unitId;
+    location.href = "http://127.0.0.1:8000/games/1/?unit_id=" + this.unitId + "&token=" + localStorage.getItem("token") + "&refresh=" + localStorage.getItem("refresh");
   }
 
   public openWIP(): void {

@@ -11,6 +11,15 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from apps.signals.models import UUnit, ULesson
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -147,3 +156,125 @@ class UserReassignView(generics.UpdateAPIView):
 class UserEditView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserEditSerializer
+
+
+class FileDownloadView(APIView):
+    def get(self, request, format=None):
+        user = request.user
+        response = generate_report(user.id)
+        return response
+
+
+class FileDownloadAlumnoView(APIView):
+    def get(self, request, pk, format=None):
+        user = User.objects.get(id=pk)
+        response = generate_student_report(user.id)
+        return response
+
+
+
+
+
+def generate_student_report(student_id):
+    # Obtén el alumno
+    student = get_object_or_404(User, id=student_id)
+
+    # Obtén las unidades del alumno
+    units = UUnit.objects.filter(user=student)
+
+    # Configura la respuesta como PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="reporte_{student.username}.pdf"'
+
+    # Crea el objeto canvas
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    # Título del reporte
+    p.setFont("Helvetica-Bold", 18)  # Aumenta el tamaño de la fuente
+    p.drawString(50, height - 40, f"Reporte de {student.username}")  # Alineado a la izquierda
+
+    # Información del alumno
+    p.setFont("Helvetica", 12)
+    p.drawString(50, height - 70, f"Nombre: {student.username}")
+    p.drawString(50, height - 90, f"Nivel: {student.level}")
+
+    # Encabezados de la tabla de unidades y lecciones
+    y = height - 130
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, y, "Unidad")
+    p.drawString(200, y, "Lección")
+    p.drawString(400, y, "Completada")
+    y -= 20
+
+    # Variables para el contenido
+    p.setFont("Helvetica", 10)
+
+    for unit in units:
+        lessons = ULesson.objects.filter(unit=unit)
+        unit_name_displayed = False
+        for lesson in lessons:
+            if not unit_name_displayed:
+                p.drawString(50, y, unit.name)
+                unit_name_displayed = True
+            p.drawString(200, y, lesson.name)
+            p.drawString(400, y, "Sí" if lesson.completed else "No")
+            y -= 20
+
+            if y < 50:
+                p.showPage()
+                y = height - 40
+                p.setFont("Helvetica", 10)
+
+        y -= 10  # Espacio entre unidades
+
+    p.save()
+    return response
+
+
+def generate_report(profesor_id):
+    # Obtén el profesor
+    profesor = get_object_or_404(User, id=profesor_id)
+
+    # Filtra los alumnos del profesor
+    alumnos = User.objects.filter(profesor=profesor)
+
+    # Configura la respuesta como PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="reporte.pdf"'
+
+    # Crea el objeto canvas
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    # Título del reporte
+    p.setFont("Helvetica-Bold", 18)  # Aumenta el tamaño de la fuente
+    p.drawString(50, height - 40, f"Reporte de Alumnos del Profesor {profesor.username}")  # Alineado a la izquierda
+
+    # Encabezados de la tabla
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, height - 70, "Nombre del Alumno")
+    p.drawString(200, height - 70, "Nivel")
+    p.drawString(300, height - 70, "Unidades Asignadas")
+    p.drawString(450, height - 70, "Unidades Completadas")
+
+    # Variables para el contenido
+    y = height - 90
+    p.setFont("Helvetica", 10)
+
+    for alumno in alumnos:
+        unidades_asignadas = UUnit.objects.filter(user=alumno).count()
+        unidades_completadas = UUnit.objects.filter(user=alumno, ulesson__completed=True).distinct().count()
+
+        p.drawString(50, y, alumno.username)
+        p.drawString(200, y, str(alumno.level))
+        p.drawString(300, y, str(unidades_asignadas))
+        p.drawString(450, y, str(unidades_completadas))
+        y -= 20
+
+        if y < 50:
+            p.showPage()
+            y = height - 40
+
+    p.save()
+    return response
